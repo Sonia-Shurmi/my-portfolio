@@ -3,9 +3,9 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import { useState } from 'react'
 import {
-  ArrowDown,
   ArrowUpRight,
   Code2,
+  Download,
   Mail,
   Menu,
   X,
@@ -19,7 +19,20 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
-const technologies = ['React', 'Next.js', 'TypeScript', 'Tailwind CSS']
+const aboutHighlights = [
+  {
+    title: 'What I enjoy building',
+    body: 'Responsive dashboards, interactive product pages, and small tools that make everyday tasks easier.',
+  },
+  {
+    title: 'How I work',
+    body: 'Start from the user flow, break features into small components, and iterate quickly with visual feedback.',
+  },
+  {
+    title: 'Beyond the code',
+    body: 'Curious by nature — I explore new frameworks, sketch UI ideas, and share what I learn along the way.',
+  },
+]
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -114,7 +127,11 @@ function Hero() {
             Open to opportunities
           </p>
 
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#14213d] sm:text-5xl lg:text-6xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Sonia Akter — Front-End Web Developer
+          </p>
+
+          <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight text-[#14213d] sm:text-5xl lg:text-6xl">
             Building modern web experiences.
           </h1>
 
@@ -131,6 +148,15 @@ function Hero() {
             >
               View Projects
               <span className="ml-2" aria-hidden="true">↗</span>
+            </a>
+
+            <a
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#14213d] px-6 py-3 font-semibold text-white transition hover:bg-[#0d9488]"
+            >
+              <Download size={17} />
+              Download Resume
             </a>
 
             <a
@@ -170,18 +196,48 @@ function App() {
 
         <section
           id="about"
-          className="scroll-mt-24 border-t border-slate-200 bg-white px-5 py-16 text-center sm:px-8"
+          className="scroll-mt-24 border-t border-slate-200 bg-white px-5 py-16 sm:px-8 sm:py-20"
         >
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#0d9488]">
-            A little more about me
-          </p>
-          <h2 className="mt-3 text-2xl font-bold text-[#14213d]">
-            Turning curiosity into code.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl leading-7 text-slate-600">
-            I enjoy learning modern web technologies and building useful,
-            accessible, and responsive digital products.
-          </p>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0d9488]">
+              A little more about me
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-[#14213d] sm:text-3xl">
+              Turning curiosity into code.
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-600">
+              I started with simple HTML pages and grew into full web
+              development through university coursework, self-study, and
+              building real projects. I enjoy the frontend most — shaping
+              layouts, interactions, and details until an interface feels
+              effortless to use.
+            </p>
+
+            <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">
+              I'm most interested in frontend and full-stack roles where I
+              can ship polished, accessible UI while keeping learning from a
+              collaborative team. Outside of coding, I like exploring new
+              design trends, improving my workflow tools, and turning small
+              everyday ideas into useful side projects.
+            </p>
+
+            <div className="mt-10 grid gap-5 text-left sm:grid-cols-3">
+              {aboutHighlights.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-teal-200 hover:bg-teal-50/50"
+                >
+                  <h3 className="text-sm font-bold text-[#14213d]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Skills />
@@ -224,6 +280,15 @@ function App() {
       msakter93@gmail.com
     </p>
 
+    <p className="mt-2 text-sm text-slate-300">
+      <a
+        href="tel:+8801712345678"
+        className="transition hover:text-teal-300"
+      >
+        +880 1712-345678
+      </a>
+    </p>
+
     <div className="mt-8 flex justify-center gap-4">
       <a
         href="https://github.com/Sonia-Shurmi"
@@ -250,8 +315,35 @@ function App() {
 
       </main>
 
-      <footer className="border-t border-slate-200 bg-white px-5 py-6 text-center text-sm text-slate-500">
-        © {new Date().getFullYear()} Sonia Akter. Built with React & Tailwind CSS.
+      <footer className="border-t border-slate-200 bg-white px-5 py-8 sm:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row">
+          <div className="text-center sm:text-left">
+            <p className="text-sm font-semibold text-[#14213d]">
+              Sonia<span className="text-[#0d9488]">.dev</span>
+            </p>
+            <p className="mt-1 text-sm text-slate-500">
+              © {new Date().getFullYear()} Sonia Akter. Built with React & Tailwind CSS.
+            </p>
+          </div>
+
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="transition hover:text-[#0d9488]"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#home"
+              className="transition hover:text-[#0d9488]"
+            >
+              Back to top ↑
+            </a>
+          </nav>
+        </div>
       </footer>
     </div>
   )

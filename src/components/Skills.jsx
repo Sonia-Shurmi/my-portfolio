@@ -139,11 +139,6 @@ function Skills() {
               </div>
             ))}
           </div>
-
-          <p className="mt-6 text-xs leading-5 text-slate-400">
-            This list represents technologies to showcase. We'll adjust it
-            to accurately reflect your experience and confidence with each.
-          </p>
         </div>
       </div>
     </section>

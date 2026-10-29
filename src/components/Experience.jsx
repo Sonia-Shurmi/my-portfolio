@@ -9,29 +9,29 @@ import {
 const experiences = [
   {
     type: 'Education',
-    title: 'Computer Engineering',
+    title: 'B.Sc. in Computer Science & Engineering',
     organization: 'Daffodil International University',
     period: '2021',
     description:
-      'Academic background in computing and technology, supporting my journey into modern web development.',
+      'Graduated in 2021 with coursework in programming fundamentals, data structures, databases, and software engineering — the base that led me into modern web development.',
     icon: GraduationCap,
   },
   {
     type: 'Professional Experience',
     title: 'Front-End Web Developer',
     organization: 'Softnio IT',
-    period: 'Previous experience',
+    period: '2021 – 2023',
     description:
-      'Worked on web development and responsive interface projects, including contributions to web templates.',
+      'Built and maintained responsive, cross-browser UIs from designs and templates. Converted static layouts into reusable components, improved page performance, and collaborated with the team on feature delivery and code reviews.',
     icon: BriefcaseBusiness,
   },
   {
     type: 'Project Experience',
     title: 'Modern Web Application Development',
     organization: 'Personal & Academic Projects',
-    period: 'Recent projects',
+    period: '2023 – Present',
     description:
-      'Built DevStack, FitLog, and Bazar Dor using modern frontend technologies, with experience in application structure, responsive UI, and database integration.',
+      'Shipped DevStack, FitLog, and Bazar Dor end to end — planning features, building responsive interfaces, integrating authentication and MongoDB, and deploying production apps to Vercel and Netlify.',
     icon: Code2,
   },
 ]

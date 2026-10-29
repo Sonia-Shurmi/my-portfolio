@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowUpRight,
   Code2,
@@ -12,8 +12,15 @@ const projects = [
     id: 'devstack',
     name: 'DevStack',
     category: 'Frontend Development',
+    image: '/project01.png',
     description:
       'A responsive technology discovery application built with React and modern UI tools.',
+    challenge:
+      'Presenting a large catalogue of technologies in a way that stays fast and easy to scan on both desktop and mobile, without overwhelming first-time visitors.',
+    solution:
+      'Built a component-driven React UI with reusable cards, category filtering, and Tailwind utility classes so the same markup adapts cleanly from small phones to wide screens.',
+    future:
+      'Add fuzzy search, side-by-side technology comparison, and pull the catalogue from an API so new entries can ship without redeploying.',
     technologies: ['React', 'Vite', 'Tailwind CSS', 'DaisyUI'],
     liveUrl: 'https://devstack-assignment.netlify.app/',
     githubUrl: 'https://github.com/Sonia-Shurmi/devstack',
@@ -25,8 +32,15 @@ const projects = [
     id: 'fitlog',
     name: 'FitLog',
     category: 'Fitness Web Application',
+    image: '/project02.png',
     description:
       'A fitness planning application built with Next.js and TypeScript.',
+    challenge:
+      'Letting users plan workouts and log sets over time while keeping the interface simple enough to use mid-workout, on a phone, with one hand.',
+    solution:
+      'Used Next.js with TypeScript for typed workout data, server rendering for fast first paint, and a small set of composable form and table components for logging.',
+    future:
+      'Add progress charts, reminder notifications, and CSV export so training history can be reviewed outside the app.',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     liveUrl: 'https://a6-fitlog1.vercel.app/',
     githubUrl: 'https://github.com/Sonia-Shurmi/a6-fitlog',
@@ -38,8 +52,15 @@ const projects = [
     id: 'bazar-dor',
     name: 'Bazar Dor',
     category: 'Full-Stack Web Application',
+    image: '/project03.png',
     description:
       'A marketplace application using Next.js, authentication, and MongoDB.',
+    challenge:
+      'Managing authentication, product listings, and orders securely for buyers and sellers, while keeping data access predictable as the catalogue grows.',
+    solution:
+      'Combined Next.js routes with Better Auth for sessions and MongoDB for listings and orders, with all data access funneled through a small set of API handlers.',
+    future:
+      'Add payment checkout, an order-status workflow, image uploads for listings, and an admin dashboard for moderation.',
     technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Better Auth'],
     liveUrl: 'https://bajar-dor-rosy.vercel.app/',
     githubUrl: 'https://github.com/Sonia-Shurmi/bajar-dor',
@@ -52,6 +73,17 @@ const projects = [
 
 function Projects() {
   const [selectedProject, setSelectedProject] = useState(null)
+
+  useEffect(() => {
+    if (!selectedProject) return undefined
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedProject(null)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [selectedProject])
 
   return (
     <section
@@ -87,22 +119,22 @@ function Projects() {
               className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl hover:shadow-slate-900/5"
             >
               <div
-                className={`relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-br ${project.color}`}
+                className={`relative h-48 overflow-hidden bg-gradient-to-br ${project.color}`}
               >
+                <img
+                  src={project.image}
+                  alt={`${project.name} project preview`}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
+                />
+
                 <div className="absolute left-4 top-4 rounded-full border border-white/80 bg-white/80 px-3 py-1 text-xs font-semibold text-slate-600 backdrop-blur">
                   {project.category}
                 </div>
 
-                <div
-                  className={`flex h-24 w-24 items-center justify-center rounded-3xl border border-white/80 bg-white/70 text-4xl font-black tracking-tight shadow-sm transition duration-300 group-hover:scale-110 ${project.iconColor}`}
-                >
-                  {project.icon}
+                <div className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/80 bg-white/85 text-base font-black tracking-tight shadow-sm backdrop-blur">
+                  <span className={project.iconColor}>{project.icon}</span>
                 </div>
-
-                <Code2
-                  size={24}
-                  className="absolute bottom-4 right-4 text-slate-500/60"
-                />
               </div>
 
               <div className="p-6">
@@ -201,6 +233,14 @@ function Projects() {
               </button>
             </div>
 
+            <figure className="mt-5 overflow-hidden rounded-xl border border-slate-200">
+              <img
+                src={selectedProject.image}
+                alt={`${selectedProject.name} project screenshot`}
+                className="h-56 w-full bg-gradient-to-br object-cover object-top"
+              />
+            </figure>
+
             <p className="mt-5 leading-7 text-slate-600">
               {selectedProject.description}
             </p>
@@ -220,6 +260,13 @@ function Projects() {
             </p>
 
             <h4 className="mt-5 font-bold text-[#14213d]">
+              Future improvements
+            </h4>
+            <p className="mt-2 leading-7 text-slate-600">
+              {selectedProject.future}
+            </p>
+
+            <h4 className="mt-5 font-bold text-[#14213d]">
               Technology stack
             </h4>
 
@@ -234,10 +281,36 @@ function Projects() {
               ))}
             </div>
 
+            <div className="mt-8 flex flex-wrap gap-3">
+              {selectedProject.liveUrl && (
+                <a
+                  href={selectedProject.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#0d9488] px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-700"
+                >
+                  Live demo
+                  <ExternalLink size={15} />
+                </a>
+              )}
+
+              {selectedProject.githubUrl && (
+                <a
+                  href={selectedProject.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-[#14213d] transition hover:border-[#0d9488] hover:text-[#0d9488]"
+                >
+                  Source code
+                  <Code2 size={15} />
+                </a>
+              )}
+            </div>
+
             <button
               type="button"
               onClick={() => setSelectedProject(null)}
-              className="mt-8 w-full rounded-xl bg-[#14213d] px-5 py-3 font-semibold text-white transition hover:bg-[#0d9488]"
+              className="mt-4 w-full rounded-xl border border-slate-200 px-5 py-3 font-semibold text-slate-600 transition hover:bg-slate-100"
             >
               Close details
             </button>
